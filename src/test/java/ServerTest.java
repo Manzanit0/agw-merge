@@ -1,3 +1,7 @@
+import Mocks.ServerMock;
+import Mocks.ServerSocketMock;
+import Mocks.SocketMock;
+import core.Server;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -5,26 +9,19 @@ import org.junit.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static junit.framework.TestCase.assertEquals;
 
 public class ServerTest {
     private ServerSocketMock serverSocket;
     private SocketMock socket;
-    private SocketMock clientSocket;
 
     @Before
     public void init() throws IOException {
-        socket = new SocketMock("0.0.0.0", 5000);
+        socket = new SocketMock();
         serverSocket = new ServerSocketMock(5000);
 
         // Simulates the first accepted connection.
         serverSocket.setConnectionSocket(socket);
-
-        // Messages exchanged with the first connection.
-        setMockMessages(socket, "XXX", "XXX");
-
-        clientSocket = new SocketMock("0.0.0.0", 5000);
     }
 
     @After
@@ -33,27 +30,50 @@ public class ServerTest {
     }
 
     @Test
-    public void acceptsIncomingConnections() throws IOException {
+    public void sendsMessages() {
         Server server = new Server(serverSocket);
-        server.start();
+        server.acceptConnection();
+
+        server.send("A message in a socket.");
 
         ByteArrayOutputStream output = (ByteArrayOutputStream) socket.getOutputStream();
-        assertFalse(output.toString().isEmpty());
+        assertEquals("A message in a socket.", output.toString());
     }
 
     @Test
-    public void receivesIncomingMessages() {
+    public void receivesMessages() {
         Server server = new Server(serverSocket);
-        server.start();
+        server.acceptConnection();
 
-        Client client = new Client(clientSocket);
-        setMockMessages(clientSocket, "Message to send", "Message to receive");
+        setMockMessages(socket, "out", "in");
 
-        String response = client.send("Message to send");
+        String message = server.receive();
 
-        assertTrue(response.contains("Message to receive"));
+        assertEquals("in", message);
     }
 
+    @Test
+    public void receivesMultilineMessages() {
+        Server server = new Server(serverSocket);
+        server.acceptConnection();
+
+        setMockMessages(socket, "out", "in\nin2\nin3");
+
+        String message = server.receive();
+
+        assertEquals("in\nin2\nin3", message);
+    }
+
+    @Test
+    public void handlesIncomingMessages() {
+        ServerMock server = new ServerMock(serverSocket);
+        server.setExchangedMessages(new String[]{ "First message" });
+
+        server.start();
+
+        ByteArrayOutputStream output = (ByteArrayOutputStream) socket.getOutputStream();
+        assertEquals("Default response", output.toString());
+    }
 
     private static void setMockMessages(SocketMock socketMock, String outMessage, String inMessage) {
         InputStream socketInput = new ByteArrayInputStream(inMessage.getBytes());
