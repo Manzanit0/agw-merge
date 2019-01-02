@@ -1,13 +1,13 @@
-package Mocks;
+package stubs;
 
 import java.io.*;
 import java.net.Socket;
 
-public class SocketMock extends Socket {
+public class SocketStub extends Socket {
     private OutputStream outputStream;
     private InputStream inputStream;
 
-    public SocketMock() {
+    public SocketStub() {
         outputStream = new ByteArrayOutputStream();
         inputStream = new ByteArrayInputStream(new byte[0]);
     }

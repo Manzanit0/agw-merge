@@ -1,12 +1,12 @@
-package Mocks;
+package stubs;
 
 import core.Server;
 import java.net.ServerSocket;
 
-public class ServerMock extends Server {
+public class ServerStub extends Server {
     private String[] messages;
 
-    public ServerMock(ServerSocket serverSocket) {
+    public ServerStub(ServerSocket serverSocket) {
         super(serverSocket);
     }
 

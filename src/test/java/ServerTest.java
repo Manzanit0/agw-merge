@@ -1,6 +1,6 @@
-import Mocks.ServerMock;
-import Mocks.ServerSocketMock;
-import Mocks.SocketMock;
+import stubs.ServerStub;
+import stubs.ServerSocketStub;
+import stubs.SocketStub;
 import core.Server;
 import org.junit.After;
 import org.junit.Before;
@@ -12,13 +12,13 @@ import java.nio.charset.StandardCharsets;
 import static junit.framework.TestCase.assertEquals;
 
 public class ServerTest {
-    private ServerSocketMock serverSocket;
-    private SocketMock socket;
+    private ServerSocketStub serverSocket;
+    private SocketStub socket;
 
     @Before
     public void init() throws IOException {
-        socket = new SocketMock();
-        serverSocket = new ServerSocketMock(5000);
+        socket = new SocketStub();
+        serverSocket = new ServerSocketStub(5000);
 
         // Simulates the first accepted connection.
         serverSocket.setConnectionSocket(socket);
@@ -66,7 +66,7 @@ public class ServerTest {
 
     @Test
     public void handlesIncomingMessages() {
-        ServerMock server = new ServerMock(serverSocket);
+        ServerStub server = new ServerStub(serverSocket);
         server.setExchangedMessages(new String[]{ "First message" });
 
         server.start();
@@ -75,9 +75,9 @@ public class ServerTest {
         assertEquals("Default response", output.toString());
     }
 
-    private static void setMockMessages(SocketMock socketMock, String outMessage, String inMessage) {
+    private static void setMockMessages(SocketStub socketStub, String outMessage, String inMessage) {
         InputStream socketInput = new ByteArrayInputStream(inMessage.getBytes());
-        socketMock.setInputStream(socketInput);
+        socketStub.setInputStream(socketInput);
 
         OutputStream socketOutput = new ByteArrayOutputStream();
 
@@ -88,6 +88,6 @@ public class ServerTest {
             throw new RuntimeException(ex);
         }
 
-        socketMock.setOutputStream(socketOutput);
+        socketStub.setOutputStream(socketOutput);
     }
 }

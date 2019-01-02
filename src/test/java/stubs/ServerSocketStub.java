@@ -1,13 +1,13 @@
-package Mocks;
+package stubs;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerSocketMock extends ServerSocket {
-    private SocketMock socket;
+public class ServerSocketStub extends ServerSocket {
+    private SocketStub socket;
 
-    public ServerSocketMock(int port) throws IOException {
+    public ServerSocketStub(int port) throws IOException {
         super(port);
     }
 
@@ -16,7 +16,7 @@ public class ServerSocketMock extends ServerSocket {
         return socket;
     }
 
-    public void setConnectionSocket(SocketMock socket) {
+    public void setConnectionSocket(SocketStub socket) {
         this.socket = socket;
     }
 }
