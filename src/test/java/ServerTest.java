@@ -45,7 +45,7 @@ public class ServerTest {
         Server server = new Server(serverSocket);
         server.acceptConnection();
 
-        setMockMessages(socket, "out", "in");
+        socket.setMockMessages("out", "in");
 
         String message = server.receive();
 
@@ -57,7 +57,7 @@ public class ServerTest {
         Server server = new Server(serverSocket);
         server.acceptConnection();
 
-        setMockMessages(socket, "out", "in\nin2\nin3");
+        socket.setMockMessages("out", "in\nin2\nin3");
 
         String message = server.receive();
 
@@ -65,29 +65,12 @@ public class ServerTest {
     }
 
     @Test
-    public void handlesIncomingMessages() {
+    public void handlesMultipleConnections() {
         ServerStub server = new ServerStub(serverSocket);
-        server.setExchangedMessages(new String[]{ "First message" });
+        server.setRequestsToProcess(5);
 
         server.start();
 
-        ByteArrayOutputStream output = (ByteArrayOutputStream) socket.getOutputStream();
-        assertEquals("Default response", output.toString());
-    }
-
-    private static void setMockMessages(SocketStub socketStub, String outMessage, String inMessage) {
-        InputStream socketInput = new ByteArrayInputStream(inMessage.getBytes());
-        socketStub.setInputStream(socketInput);
-
-        OutputStream socketOutput = new ByteArrayOutputStream();
-
-        try {
-            socketOutput.write(outMessage.getBytes(StandardCharsets.UTF_8));
-        }
-        catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-
-        socketStub.setOutputStream(socketOutput);
+        assertEquals(5, server.getRequestsProcessed());
     }
 }

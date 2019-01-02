@@ -2,6 +2,7 @@ package stubs;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class SocketStub extends Socket {
     private OutputStream outputStream;
@@ -28,5 +29,21 @@ public class SocketStub extends Socket {
 
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
+    }
+
+    public void setMockMessages(String outMessage, String inMessage) {
+        InputStream socketInput = new ByteArrayInputStream(inMessage.getBytes());
+        setInputStream(socketInput);
+
+        OutputStream socketOutput = new ByteArrayOutputStream();
+
+        try {
+            socketOutput.write(outMessage.getBytes(StandardCharsets.UTF_8));
+        }
+        catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        setOutputStream(socketOutput);
     }
 }

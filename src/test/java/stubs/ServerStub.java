@@ -4,21 +4,28 @@ import core.Server;
 import java.net.ServerSocket;
 
 public class ServerStub extends Server {
-    private String[] messages;
+    private int requestsProcessed = 0;
+    private int requestsToProcess = 0;
 
     public ServerStub(ServerSocket serverSocket) {
         super(serverSocket);
     }
 
     @Override
-    protected void handleMessages() {
-        for(String message : messages) {
-            System.out.println(message);
-            send("Default response");
+    protected void handleRequest() {
+        requestsProcessed++;
+        send("Default response");
+
+        if(requestsProcessed == requestsToProcess) {
+            this.isRunning = false;
         }
     }
 
-    public void setExchangedMessages(String[] messages) {
-        this.messages = messages;
+    public void setRequestsToProcess(int requestsToProcess) {
+        this.requestsToProcess = requestsToProcess;
+    }
+
+    public int getRequestsProcessed() {
+        return requestsProcessed;
     }
 }
