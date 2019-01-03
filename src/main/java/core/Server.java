@@ -3,9 +3,8 @@ package core;
 import core.models.Request;
 import core.models.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -59,22 +58,27 @@ public class Server {
     }
 
     public String receive() {
-        String data = "";
+        String data;
 
         try {
-            InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-            BufferedReader reader = new BufferedReader(isr);
-
-            String line;
-            while(reader.ready() && (line = reader.readLine()) != null) {
-                data += line + "\n";
-            }
+            data = readAllBytes(socket.getInputStream());
         }
         catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
-        return data.trim();
+        return data;
+    }
+
+    private String readAllBytes(InputStream stream) throws IOException {
+        StringBuilder data = new StringBuilder();
+
+        // available only returns a value after reading at least 1 character -> do/while.
+        do {
+            data.append((char) stream.read());
+        } while (stream.available() > 0);
+
+        return data.toString().trim();
     }
 
     private void closeConnection() {
