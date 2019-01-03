@@ -90,7 +90,7 @@ public class Server {
         }
     }
 
-    public boolean isRunning() {
+    private boolean isRunning() {
         return isRunning;
     }
 }

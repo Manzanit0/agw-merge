@@ -9,7 +9,11 @@ public final class Request {
     private final LinkedHashMap<String, String> headers;
     private final String body;
 
-    public Request(String method, String uri, String httpVersion, LinkedHashMap<String, String> headers, String body) {
+    public Request(String method,
+                   String uri,
+                   String httpVersion,
+                   LinkedHashMap<String, String> headers,
+                   String body) {
         this.method = method;
         this.uri = uri;
         this.httpVersion = httpVersion;
@@ -18,20 +22,20 @@ public final class Request {
     }
 
     public String getMethod() {
-        return this.method;
+        return method;
     }
 
     public String getUri() {
-        return this.uri;
+        return uri;
     }
 
-    public String getHttpVersion() { return this.httpVersion; }
+    public String getHttpVersion() { return httpVersion; }
 
     public LinkedHashMap getHeaders() {
-        return this.headers;
+        return headers;
     }
 
     public String getBody() {
-        return this.body;
+        return body;
     }
 }
