@@ -1,5 +1,8 @@
 package core;
 
+import core.models.Request;
+import core.models.Response;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,12 +21,8 @@ public class Server {
     }
 
     public void start() {
-        int count = 0;
-
         while(isRunning()) {
             acceptConnection();
-            System.out.println("\n\nConnection #" + (++count));
-
             handleRequest();
             closeConnection();
         }
@@ -40,14 +39,13 @@ public class Server {
 
     protected void handleRequest() {
         String request = receive();
-        System.out.println(request);
 
-        String response = mapResponse(request);
-        send(response);
-    }
+        Request requestModel = Parser.parse(request);
 
-    public String mapResponse(String request) {
-        return "HTTP/1.1 200 OK\r\n\r\n" + request.length();
+        // TODO - Here we would have to multiplex between registered endpoints.
+        Response responseModel = new Endpoint().getResponse(requestModel);
+
+        send(responseModel.toString());
     }
 
     public void send(String message) {
