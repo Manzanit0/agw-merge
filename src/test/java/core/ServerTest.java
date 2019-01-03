@@ -1,13 +1,13 @@
+package core;
+
 import stubs.ServerStub;
 import stubs.ServerSocketStub;
 import stubs.SocketStub;
-import core.Server;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import static junit.framework.TestCase.assertEquals;
 

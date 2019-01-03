@@ -12,11 +12,18 @@ import java.nio.charset.StandardCharsets;
 public class Server {
     private ServerSocket serverSocket;
     private Socket socket;
+    private Router router;
 
     protected boolean isRunning = true;
 
     public Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
+        this.router = new Router();
+    }
+
+    public Server(ServerSocket serverSocket, Router router) {
+        this.serverSocket = serverSocket;
+        this.router = router;
     }
 
     public void start() {
@@ -41,8 +48,7 @@ public class Server {
 
         Request requestModel = Parser.parse(request);
 
-        // TODO - Here we would have to multiplex between registered endpoints.
-        Response responseModel = new Endpoint().getResponse(requestModel);
+        Response responseModel = router.getResponse(requestModel);
 
         send(responseModel.toString());
     }

@@ -1,4 +1,5 @@
-import core.Parser;
+package core;
+
 import core.models.Request;
 import org.junit.Test;
 
