@@ -1,20 +1,20 @@
 package stubs;
 
+import core.Connection;
 import core.Server;
-import java.net.ServerSocket;
 
 public class ServerStub extends Server {
     private int requestsProcessed = 0;
     private int requestsToProcess = 0;
 
-    public ServerStub(ServerSocket serverSocket) {
-        super(serverSocket);
+    public ServerStub(Connection connection) {
+        super(connection);
     }
 
     @Override
     protected void handleRequest() {
         requestsProcessed++;
-        send("Default response");
+        connection.send("Default response");
 
         if(requestsProcessed == requestsToProcess) {
             this.isRunning = false;

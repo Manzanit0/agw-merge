@@ -1,4 +1,5 @@
 import application.*;
+import core.Connection;
 import core.Router;
 import core.Server;
 
@@ -9,7 +10,8 @@ public class Main {
 
     public static void main(String... args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(5000);
-        Server server = new Server(serverSocket, getDefaultRouter());
+        Connection conn = new Connection(serverSocket);
+        Server server = new Server(conn, getDefaultRouter());
 
         System.out.println("Listening for connection on port 5000 ....");
         server.start();
