@@ -1,6 +1,7 @@
 package core;
 
 import core.models.Response;
+import core.models.ResponseHeader;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
@@ -35,13 +36,13 @@ public class ResponseTest  {
 
     @Test
     public void buildsResponseWithHeaders() {
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("key1", "value1");
-        headers.put("key2", "value2");
+        Map<ResponseHeader, String> headers = new LinkedHashMap<>();
+        headers.put(ResponseHeader.LOCATION, "value1");
+        headers.put(ResponseHeader.ALLOW, "value2");
         Response res = Response.ok()
                 .addAllHeaders(headers)
                 .setBody("some body");
 
-        assertEquals("HTTP/1.1 200 OK\nkey1: value1\nkey2: value2\n\nsome body", res.toString());
+        assertEquals("HTTP/1.1 200 OK\nLocation: value1\nAllow: value2\n\nsome body", res.toString());
     }
 }

@@ -13,4 +13,9 @@ public class SimpleGet extends Endpoint {
     public Response get(Request request) {
         return Response.ok();
     }
+
+    @Override
+    public Response head(Request request) {
+        return Response.ok();
+    }
 }

@@ -7,36 +7,34 @@ import java.util.Map.Entry;
 public class Response {
     private static final String HTTP_VERSION = "HTTP/1.1";
 
-    private int statusCode;
-    private String reason;
-    private Map<String, String> headers;
+    private ResponseType type;
+    private Map<ResponseHeader, String> headers;
     private String body;
 
-    public Response(int statusCode, String reason) {
-        this.statusCode = statusCode;
-        this.reason = reason;
+    public Response(ResponseType type) {
+        this.type = type;
         this.headers = new LinkedHashMap<>();
         this.body = "";
     }
 
     public static Response notFound() {
-        return new Response(404, "NOT FOUND");
+        return new Response(ResponseType.NOT_FOUND);
     }
 
     public static Response ok() {
-        return new Response(200, "OK");
+        return new Response(ResponseType.OK);
     }
 
     public static Response redirect() {
-        return new Response(301, "REDIRECT");
+        return new Response(ResponseType.REDIRECT);
     }
 
     public static Response notAllowed() {
-        return new Response(405, "NOT ALLOWED");
+        return new Response(ResponseType.NOT_ALLOWED);
     }
 
     public static Response badRequest() {
-        return new Response(400, "BAD REQUEST");
+        return new Response(ResponseType.BAD_REQUEST);
     }
 
     public Response setBody(String body) {
@@ -44,12 +42,12 @@ public class Response {
         return this;
     }
 
-    public Response addAllHeaders(Map<String, String> headers) {
+    public Response addAllHeaders(Map<ResponseHeader, String> headers) {
         this.headers.putAll(headers);
         return this;
     }
 
-    public Response addHeader(String key, String value) {
+    public Response addHeader(ResponseHeader key, String value) {
         this.headers.put(key, value);
         return this;
     }
@@ -59,14 +57,14 @@ public class Response {
     }
 
     public int getStatusCode() {
-        return statusCode;
+        return type.getCode();
     }
 
     public String getReason() {
-        return reason;
+        return type.getReason();
     }
 
-    public Map<String, String> getHeaders() {
+    public Map<ResponseHeader, String> getHeaders() {
         return headers;
     }
 
@@ -86,9 +84,9 @@ public class Response {
 
         StringBuilder formattedHeaders = new StringBuilder();
 
-        for (Entry<String, String> entry : getHeaders().entrySet()) {
+        for (Entry<ResponseHeader, String> entry : getHeaders().entrySet()) {
             formattedHeaders.append(
-                    String.format("%s: %s%n", entry.getKey(), entry.getValue()));
+                    String.format("%s: %s%n", entry.getKey().getValue(), entry.getValue()));
         }
 
         return formattedHeaders.toString();

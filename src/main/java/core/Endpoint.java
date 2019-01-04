@@ -2,6 +2,7 @@ package core;
 
 import core.models.Request;
 import core.models.Response;
+import core.models.ResponseHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +74,10 @@ public abstract class Endpoint {
         return res;
     }
 
-    private Map<String, String> getDefaultHeaders() {
+    private Map<ResponseHeader, String> getDefaultHeaders() {
         return Map.of(
-                "Server", "A Javier Server 1.0",
-                "Allow", String.join(",", allowedMethods)
+                ResponseHeader.SERVER, "A Javier Server 1.0",
+                ResponseHeader.ALLOW, String.join(",", allowedMethods)
         );
     }
 
