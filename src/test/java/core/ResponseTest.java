@@ -39,7 +39,7 @@ public class ResponseTest  {
         headers.put("key1", "value1");
         headers.put("key2", "value2");
         Response res = Response.ok()
-                .setHeaders(headers)
+                .addAllHeaders(headers)
                 .setBody("some body");
 
         assertEquals("HTTP/1.1 200 OK\nkey1: value1\nkey2: value2\n\nsome body", res.toString());

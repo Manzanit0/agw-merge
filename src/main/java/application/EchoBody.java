@@ -11,7 +11,7 @@ public class EchoBody extends Endpoint {
     }
 
     @Override
-    public Response getResponse(Request request) {
+    protected Response post(Request request) {
         return Response.ok()
                 .setBody(request.getBody());
     }

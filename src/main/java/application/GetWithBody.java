@@ -4,24 +4,24 @@ import core.Endpoint;
 import core.models.Request;
 import core.models.Response;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class GetWithBody extends Endpoint {
+    public GetWithBody() {
+        setAllowedMethodsHeader(Arrays.asList("HEAD", "OPTIONS"));
+    }
+
     public String getUri() {
         return "/get_with_body";
     }
 
-    public Response getResponse(Request request) {
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Allow", "HEAD,OPTIONS");
+    @Override
+    protected Response head(Request request) {
+        return Response.ok();
+    }
 
-        if(request.getMethod().equals("HEAD") || request.getMethod().equals("OPTIONS")) {
-            return Response.ok()
-                    .setHeaders(headers);
-        }
-
-        return Response.notAllowed()
-                .setHeaders(headers);
+    @Override
+    protected Response options(Request request) {
+        return Response.ok();
     }
 }

@@ -9,7 +9,8 @@ public class SimpleGet extends Endpoint {
         return "/simple_get";
     }
 
-    public Response getResponse(Request request) {
+    @Override
+    public Response get(Request request) {
         return Response.ok();
     }
 }

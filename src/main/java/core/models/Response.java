@@ -1,5 +1,6 @@
 package core.models;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,6 +15,7 @@ public class Response {
     public Response(int statusCode, String reason) {
         this.statusCode = statusCode;
         this.reason = reason;
+        this.headers = new LinkedHashMap<>();
         this.body = "";
     }
 
@@ -33,13 +35,22 @@ public class Response {
         return new Response(405, "NOT ALLOWED");
     }
 
+    public static Response badRequest() {
+        return new Response(400, "BAD REQUEST");
+    }
+
     public Response setBody(String body) {
         this.body = body;
         return this;
     }
 
-    public Response setHeaders(Map<String, String> headers) {
-        this.headers = headers;
+    public Response addAllHeaders(Map<String, String> headers) {
+        this.headers.putAll(headers);
+        return this;
+    }
+
+    public Response addHeader(String key, String value) {
+        this.headers.put(key, value);
         return this;
     }
 

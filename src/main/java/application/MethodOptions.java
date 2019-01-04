@@ -4,19 +4,29 @@ import core.Endpoint;
 import core.models.Request;
 import core.models.Response;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class MethodOptions extends Endpoint {
+    public MethodOptions() {
+        setAllowedMethodsHeader(Arrays.asList("GET", "HEAD", "OPTIONS"));
+    }
+
     public String getUri() {
         return "/method_options";
     }
 
-    public Response getResponse(Request request) {
-        Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Allow", "GET,HEAD,OPTIONS");
+    @Override
+    protected Response get(Request request) {
+        return Response.ok();
+    }
 
-        return Response.ok()
-                .setHeaders(headers);
+    @Override
+    protected Response head(Request request) {
+        return Response.ok();
+    }
+
+    @Override
+    protected Response options(Request request) {
+        return Response.ok();
     }
 }
