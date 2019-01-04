@@ -7,16 +7,14 @@ import core.models.Response;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MethodOptions2Endpoint extends Endpoint {
-    @Override
+public class MethodOptions extends Endpoint {
     public String getUri() {
-        return "/method_options2";
+        return "/method_options";
     }
 
-    @Override
     public Response getResponse(Request request) {
         Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Allow", "GET,HEAD,OPTIONS,PUT,POST");
+        headers.put("Allow", "GET,HEAD,OPTIONS");
 
         return Response.ok()
                 .setHeaders(headers);

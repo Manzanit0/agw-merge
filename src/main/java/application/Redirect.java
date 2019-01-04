@@ -7,21 +7,16 @@ import core.models.Response;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class GetWithBodyEndpoint extends Endpoint {
+public class Redirect extends Endpoint {
     public String getUri() {
-        return "/get_with_body";
+        return "/redirect";
     }
 
     public Response getResponse(Request request) {
         Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Allow", "HEAD,OPTIONS");
+        headers.put("Location", "http://0.0.0.0:5000/simple_get");
 
-        if(request.getMethod().equals("HEAD") || request.getMethod().equals("OPTIONS")) {
-            return Response.ok()
-                    .setHeaders(headers);
-        }
-
-        return Response.notAllowed()
+        return Response.redirect()
                 .setHeaders(headers);
     }
 }

@@ -7,16 +7,21 @@ import core.models.Response;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MethodOptionsEndpoint extends Endpoint {
+public class GetWithBody extends Endpoint {
     public String getUri() {
-        return "/method_options";
+        return "/get_with_body";
     }
 
     public Response getResponse(Request request) {
         Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Allow", "GET,HEAD,OPTIONS");
+        headers.put("Allow", "HEAD,OPTIONS");
 
-        return Response.ok()
+        if(request.getMethod().equals("HEAD") || request.getMethod().equals("OPTIONS")) {
+            return Response.ok()
+                    .setHeaders(headers);
+        }
+
+        return Response.notAllowed()
                 .setHeaders(headers);
     }
 }

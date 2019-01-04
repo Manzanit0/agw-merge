@@ -7,16 +7,18 @@ import core.models.Response;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class RedirectEndpoint extends Endpoint {
+public class MethodOptions2 extends Endpoint {
+    @Override
     public String getUri() {
-        return "/redirect";
+        return "/method_options2";
     }
 
+    @Override
     public Response getResponse(Request request) {
         Map<String, String> headers = new LinkedHashMap<>();
-        headers.put("Location", "http://0.0.0.0:5000/simple_get");
+        headers.put("Allow", "GET,HEAD,OPTIONS,PUT,POST");
 
-        return Response.redirect()
+        return Response.ok()
                 .setHeaders(headers);
     }
 }

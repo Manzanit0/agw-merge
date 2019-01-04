@@ -4,12 +4,15 @@ import core.Endpoint;
 import core.models.Request;
 import core.models.Response;
 
-public class SimpleGetEndpoint extends Endpoint {
+public class EchoBody extends Endpoint {
+    @Override
     public String getUri() {
-        return "/simple_get";
+        return "/echo_body";
     }
 
+    @Override
     public Response getResponse(Request request) {
-        return Response.ok();
+        return Response.ok()
+                .setBody(request.getBody());
     }
 }
