@@ -12,6 +12,6 @@ public class EchoBodyEndpoint extends Endpoint {
 
     @Override
     public Response getResponse(Request request) {
-        return new Response("HTTP/1.1", "200", "NOT FOUND", null, request.getBody());
+        return new Response(200, "Ok", null, request.getBody());
     }
 }

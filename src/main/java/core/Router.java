@@ -17,7 +17,7 @@ public class Router {
         Endpoint endpoint = endpoints.get(request.getUri());
 
         if(endpoint == null) {
-            return new Response("HTTP/1.1", "404", "NOT FOUND", null, null);
+            return Response.notFound();
         }
 
         return endpoint.getResponse(request);

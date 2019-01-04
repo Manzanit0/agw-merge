@@ -3,30 +3,34 @@ package core.models;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public final class Response {
-    private final String httpVersion;
-    private final String statusCode;
-    private final String reason;
-    private final Map<String, String> headers;
-    private final String body;
+public class Response {
+    private static final String HTTP_VERSION = "HTTP/1.1";
 
-    public Response(String httpVersion,
-                    String statusCode,
-                    String reason,
-                    Map<String, String> headers,
-                    String body) {
-        this.httpVersion = httpVersion;
-        this.statusCode = statusCode;
-        this.reason = reason;
+    private int statusCode;
+    private String reason;
+    private Map<String, String> headers;
+    private String body;
+
+    public Response(int statusCode, String reason, Map<String, String> headers, String body) {
+        this(statusCode, reason);
         this.headers = headers;
         this.body = body;
     }
 
-    public String getHttpVersion() {
-        return httpVersion;
+    public Response(int statusCode, String reason) {
+        this.statusCode = statusCode;
+        this.reason = reason;
     }
 
-    public String getStatusCode() {
+    public static Response notFound() {
+        return new Response(404, "NOT FOUND");
+    }
+
+    public String getHttpVersion() {
+        return HTTP_VERSION;
+    }
+
+    public int getStatusCode() {
         return statusCode;
     }
 

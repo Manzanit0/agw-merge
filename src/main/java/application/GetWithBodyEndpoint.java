@@ -17,10 +17,10 @@ public class GetWithBodyEndpoint extends Endpoint {
         headers.put("Allow", "HEAD,OPTIONS");
 
         if(request.getMethod().equals("HEAD") || request.getMethod().equals("OPTIONS")) {
-            return new Response("HTTP/1.1", "200", "OK", headers, "");
+            return new Response(200, "OK", headers, "");
         }
         else {
-            return new Response("HTTP/1.1", "405", "OK", headers, "");
+            return new Response(405, "OK", headers, "");
         }
     }
 }

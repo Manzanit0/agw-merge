@@ -18,6 +18,6 @@ public class MethodOptions2Endpoint extends Endpoint {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Allow", "GET,HEAD,OPTIONS,PUT,POST");
 
-        return new Response("HTTP/1.1", "200", "OK", headers, "");
+        return new Response(200, "OK", headers, "");
     }
 }
