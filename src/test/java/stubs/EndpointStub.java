@@ -10,6 +10,6 @@ public class EndpointStub extends Endpoint {
     }
 
     public Response getResponse(Request request) {
-        return new Response("HTTP/1.1", "200", "OK", null, null);
+        return Response.ok();
     }
 }

@@ -31,7 +31,7 @@ public class RouterTest {
         Request request = new Request("GET", "/false_endpoint", "HTTP/1.1", null, null);
 
         Response response = router.getResponse(request);
-        assertEquals("200", response.getStatusCode());
+        assertEquals(200, response.getStatusCode());
         assertEquals("OK", response.getReason());
     }
 
@@ -40,7 +40,7 @@ public class RouterTest {
         Request request = new Request("POST", "/this_does_not_exist", "HTTP/1.1", null, null);
 
         Response response = router.getResponse(request);
-        assertEquals("404", response.getStatusCode());
+        assertEquals(404, response.getStatusCode());
         assertEquals("NOT FOUND", response.getReason());
     }
 }

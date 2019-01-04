@@ -10,6 +10,6 @@ public class SimpleGetEndpoint extends Endpoint {
     }
 
     public Response getResponse(Request request) {
-        return new Response(200, "OK", null, "");
+        return Response.ok();
     }
 }

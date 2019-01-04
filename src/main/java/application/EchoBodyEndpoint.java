@@ -12,6 +12,7 @@ public class EchoBodyEndpoint extends Endpoint {
 
     @Override
     public Response getResponse(Request request) {
-        return new Response(200, "Ok", null, request.getBody());
+        return Response.ok()
+                .setBody(request.getBody());
     }
 }

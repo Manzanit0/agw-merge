@@ -16,6 +16,7 @@ public class RedirectEndpoint extends Endpoint {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Location", "http://0.0.0.0:5000/simple_get");
 
-        return new Response(301, "REDIRECT", headers, "");
+        return Response.redirect()
+                .setHeaders(headers);
     }
 }

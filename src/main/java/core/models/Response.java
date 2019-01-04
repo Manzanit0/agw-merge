@@ -11,19 +11,36 @@ public class Response {
     private Map<String, String> headers;
     private String body;
 
-    public Response(int statusCode, String reason, Map<String, String> headers, String body) {
-        this(statusCode, reason);
-        this.headers = headers;
-        this.body = body;
-    }
-
     public Response(int statusCode, String reason) {
         this.statusCode = statusCode;
         this.reason = reason;
+        this.body = "";
     }
 
     public static Response notFound() {
         return new Response(404, "NOT FOUND");
+    }
+
+    public static Response ok() {
+        return new Response(200, "OK");
+    }
+
+    public static Response redirect() {
+        return new Response(301, "REDIRECT");
+    }
+
+    public static Response notAllowed() {
+        return new Response(405, "NOT ALLOWED");
+    }
+
+    public Response setBody(String body) {
+        this.body = body;
+        return this;
+    }
+
+    public Response setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+        return this;
     }
 
     public String getHttpVersion() {
