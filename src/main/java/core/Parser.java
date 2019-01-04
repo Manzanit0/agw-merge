@@ -3,37 +3,46 @@ package core;
 import core.models.Request;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Parser {
+    public static Request parse(String requestString) {
+        Request request = new Request();
 
-    public static Request parse(String request) {
-        String[] lines = request.split("\n");
-        String[] requestLine = lines[0].split(" ");
+        String[] requestLine = parseRequestLine(requestString);
+        request.setMethod(requestLine[0])
+                .setUri(requestLine[1])
+                .setHttpVersion(requestLine[2]);
 
-        String method = requestLine[0];
-        String requestUri = requestLine[1];
-        String httpVersion = requestLine[2];
+        Map<String, String> headers = parseHeaders(requestString);
+        request.setHeaders(headers);
 
-        String[] parts = request.split("\r\n\r\n");
+        String body = parseBody(requestString);
+        request.setBody(body);
 
-        LinkedHashMap<String, String> headers = parseHeader(parts[0]);
-        String body = parts.length == 2 ? parts[1] : null;
-
-        return new Request(method, requestUri, httpVersion)
-                .setHeaders(headers)
-                .setBody(body);
+        return request;
     }
 
-    private static LinkedHashMap<String, String> parseHeader(String headers) {
+    private static String[] parseRequestLine(String requestString) {
+        String[] lines = requestString.split("\n");
+        return lines[0].split(" ");
+    }
+
+    private static Map<String, String> parseHeaders(String requestString) {
+        String[] parts = requestString.split("\r\n\r\n");
+        String[] headersArray = parts[0].split("\n");
+
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
-
-        String[] headersArray = headers.split("\n");
-
         for(int i = 1; i < headersArray.length; i++) { // Skip first element -> HTTP requestLine.
             String[] header = headersArray[i].split(":");
             headersMap.put(header[0].trim(), header[1].trim());
         }
 
         return headersMap;
+    }
+
+    private static String parseBody(String requestString) {
+        String[] parts = requestString.split("\r\n\r\n");
+        return parts.length == 2 ? parts[1] : null; // No body is not the same as empty body.
     }
 }
