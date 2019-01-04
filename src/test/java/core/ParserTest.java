@@ -13,7 +13,7 @@ public class ParserTest {
     public void parseRequestWithoutHeaders() {
         String requestString = "GET /helloworld HTTP/1.1\n";
 
-        Request request = new Request("GET", "/helloworld", "HTTP/1.1", null, null);
+        Request request = new Request("GET", "/helloworld", "HTTP/1.1");
         Request parsedRequest = Parser.parse(requestString);
 
         assertEquals(request.getMethod(), parsedRequest.getMethod());
@@ -33,7 +33,8 @@ public class ParserTest {
         headers.put("User-Agent", "Mozilla/4.0 (compatible; MSIE5.01; Windows NT)");
         headers.put("Host", "localhost");
         headers.put("Connection", "Keep-Alive");
-        Request request = new Request("GET", "/helloworld", "HTTP/1.1", headers, null);
+        Request request = new Request("GET", "/helloworld", "HTTP/1.1")
+                .setHeaders(headers);
 
         Request parsedRequest = Parser.parse(requestString);
 
@@ -57,7 +58,9 @@ public class ParserTest {
         LinkedHashMap<String, String> headers = new LinkedHashMap<>();
         headers.put("Content-Type", "application/text");
         headers.put("Content-Length", "456");
-        Request request = new Request("POST", "localhost", "HTTP/1.1", headers, "Some body");
+        Request request = new Request("POST", "localhost", "HTTP/1.1")
+                .setHeaders(headers)
+                .setBody("Some body");
 
         Request parsedRequest = Parser.parse(requestString);
 

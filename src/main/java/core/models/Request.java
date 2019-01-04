@@ -1,26 +1,29 @@
 package core.models;
 
-import java.util.LinkedHashMap;
+import java.util.Map;
 
 public final class Request {
-    private final String method;
-    private final String uri;
-    private final String httpVersion;
-    private final LinkedHashMap<String, String> headers;
-    private final String body;
+    private String method;
+    private String uri;
+    private String httpVersion;
+    private Map<String, String> headers;
+    private String body;
 
-    public Request(String method,
-                   String uri,
-                   String httpVersion,
-                   LinkedHashMap<String, String> headers,
-                   String body) {
+    public Request(String method, String uri, String httpVersion) {
         this.method = method;
         this.uri = uri;
         this.httpVersion = httpVersion;
-        this.headers = headers;
-        this.body = body;
     }
 
+    public Request setBody(String body) {
+        this.body = body;
+        return this;
+    }
+
+    public Request setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+        return this;
+    }
     public String getMethod() {
         return method;
     }
@@ -31,7 +34,7 @@ public final class Request {
 
     public String getHttpVersion() { return httpVersion; }
 
-    public LinkedHashMap getHeaders() {
+    public Map getHeaders() {
         return headers;
     }
 

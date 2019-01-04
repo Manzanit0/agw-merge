@@ -28,7 +28,7 @@ public class RouterTest {
 
     @Test
     public void getsCorrectResponseForExistingEndpoint() {
-        Request request = new Request("GET", "/false_endpoint", "HTTP/1.1", null, null);
+        Request request = new Request("GET", "/false_endpoint", "HTTP/1.1");
 
         Response response = router.getResponse(request);
         assertEquals(200, response.getStatusCode());
@@ -37,7 +37,7 @@ public class RouterTest {
 
     @Test
     public void getsNotFoundResponseForNonExistingEndpoint() {
-        Request request = new Request("POST", "/this_does_not_exist", "HTTP/1.1", null, null);
+        Request request = new Request("POST", "/this_does_not_exist", "HTTP/1.1");
 
         Response response = router.getResponse(request);
         assertEquals(404, response.getStatusCode());

@@ -19,7 +19,9 @@ public class Parser {
         LinkedHashMap<String, String> headers = parseHeader(parts[0]);
         String body = parts.length == 2 ? parts[1] : null;
 
-        return new Request(method, requestUri, httpVersion, headers, body);
+        return new Request(method, requestUri, httpVersion)
+                .setHeaders(headers)
+                .setBody(body);
     }
 
     private static LinkedHashMap<String, String> parseHeader(String headers) {
