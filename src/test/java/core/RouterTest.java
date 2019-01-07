@@ -16,7 +16,7 @@ public class RouterTest {
     public void setUp() {
         router = new Router();
         Endpoint endpoint = new EndpointStub();
-        router.addEndpoint(endpoint);
+        router.add(endpoint);
     }
 
     @Test

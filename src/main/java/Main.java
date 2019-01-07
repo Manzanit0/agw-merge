@@ -20,11 +20,11 @@ public class Main {
 
     private static Router getDefaultRouter() {
         return new Router()
-                .addEndpoint(new Redirect())
-                .addEndpoint(new MethodOptions())
-                .addEndpoint(new MethodOptions2())
-                .addEndpoint(new EchoBody())
-                .addEndpoint(new SimpleGet())
-                .addEndpoint(new GetWithBody());
+                .add(new Redirect())
+                .add(new MethodOptions())
+                .add(new MethodOptions2())
+                .add(new EchoBody())
+                .add(new SimpleGet())
+                .add(new GetWithBody());
     }
 }

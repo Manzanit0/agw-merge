@@ -20,7 +20,7 @@ public class Router {
         return endpoint.getResponse(request);
     }
 
-    public Router addEndpoint(Endpoint endpoint) {
+    public Router add(Endpoint endpoint) {
         endpoints.put(endpoint.getUri(), endpoint);
         return this;
     }
