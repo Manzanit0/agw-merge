@@ -37,23 +37,11 @@ bundler exec spinach
 Here is the bootstrap code to start the server:
 
 ```java
-import application.*;
-import core.Connection;
-import core.Router;
 import core.Server;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-
 public class Main {
-
-    public static void main(String... args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(5000);
-        Connection conn = new Connection(serverSocket);
-        Router router = new Router();
-        Server server = new Server(conn, router);
-
-        System.out.println("Listening for connection on port 5000 ....");
+    public static void main(String... args) {
+        Server server = Server.defaultServer();
         server.start();
     }
 }
@@ -87,10 +75,10 @@ public class HelloWorld extends Endpoint {
 
 ```
 
-And then add the endpoint to the router, wherever you've defined it:
+And then add the endpoint to the router:
 
 ```java
-Router router = new Router();
+Router router = server.getRouter();
 router.add(new HelloWorld());
 ```
 
