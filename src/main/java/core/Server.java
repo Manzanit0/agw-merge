@@ -21,11 +21,11 @@ public class Server {
         this.router = router;
     }
 
-    public static Server defaultServer() {
+    public static Server defaultServer(int port) {
         ServerSocket serverSocket;
 
         try {
-            serverSocket = new ServerSocket(5000);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

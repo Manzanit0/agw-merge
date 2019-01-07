@@ -5,7 +5,7 @@ import core.Server;
 public class Main {
 
     public static void main(String... args) {
-        Server server = Server.defaultServer();
+        Server server = Server.defaultServer(5000);
         configureRouter(server.getRouter());
 
         server.start();

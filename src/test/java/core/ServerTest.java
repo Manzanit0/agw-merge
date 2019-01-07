@@ -14,7 +14,7 @@ public class ServerTest {
     @Test
     public void handlesMultipleConnections() throws IOException {
         SocketStub socket = new SocketStub();
-        ServerSocketStub serverSocket = new ServerSocketStub(5101);
+        ServerSocketStub serverSocket = new ServerSocketStub(5201);
         Connection connection = new Connection(serverSocket);
 
         // Simulates the first accepted connection.
@@ -30,7 +30,7 @@ public class ServerTest {
 
     @Test
     public void createsDefaultRouterWithoutExceptions() {
-        Server server = Server.defaultServer();
+        Server server = Server.defaultServer(5202);
         assertNotEquals(null, server);
         assertNotEquals(null, server.getRouter());
     }
