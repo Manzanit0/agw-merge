@@ -13,13 +13,14 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ConnectionTest {
 
+    private int portNumber = 5000;
     private ServerSocketStub serverSocket;
     private SocketStub socket;
 
     @Before
     public void init() throws IOException {
         socket = new SocketStub();
-        serverSocket = new ServerSocketStub(5000);
+        serverSocket = new ServerSocketStub(portNumber++);
 
         // Simulates the first accepted connection.
         serverSocket.setConnectionSocket(socket);
