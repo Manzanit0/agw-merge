@@ -9,7 +9,8 @@ public class Request {
     private Map<String, String> headers;
     private String body;
 
-    public Request() {}
+    public Request() {
+    }
 
     public Request(String method, String uri, String httpVersion) {
         this.method = method;

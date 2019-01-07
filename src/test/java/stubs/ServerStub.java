@@ -16,7 +16,7 @@ public class ServerStub extends Server {
         requestsProcessed++;
         connection.send("Default response");
 
-        if(requestsProcessed == requestsToProcess) {
+        if (requestsProcessed == requestsToProcess) {
             this.isRunning = false;
         }
     }

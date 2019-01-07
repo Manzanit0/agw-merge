@@ -14,7 +14,7 @@ public class Router {
     }
 
     public Response getResponse(Request request) {
-        if(!endpoints.containsKey(request.getUri())) return Response.notFound();
+        if (!endpoints.containsKey(request.getUri())) return Response.notFound();
 
         Endpoint endpoint = endpoints.get(request.getUri());
         return endpoint.getResponse(request);

@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class ResponseTest  {
+public class ResponseTest {
     @Test
     public void hasValidStatusLineInformation() {
         Response res = Response.ok();

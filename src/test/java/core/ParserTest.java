@@ -50,10 +50,10 @@ public class ParserTest {
     public void parseRequestWithHeadersAndBody() {
         String requestString =
                 "POST localhost HTTP/1.1\n" +
-                "Content-Type: application/text\n" +
-                "Content-Length: 456\n" +
-                "\r\n\r\n" +
-                "Some body";
+                        "Content-Type: application/text\n" +
+                        "Content-Length: 456\n" +
+                        "\r\n\r\n" +
+                        "Some body";
 
         LinkedHashMap<String, String> headers = new LinkedHashMap<>();
         headers.put("Content-Type", "application/text");

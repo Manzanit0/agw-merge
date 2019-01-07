@@ -17,8 +17,7 @@ public class Connection {
     public void acceptConnection() {
         try {
             socket = serverSocket.accept();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -27,8 +26,7 @@ public class Connection {
         try {
             socket.getOutputStream()
                     .write(message.getBytes(StandardCharsets.UTF_8));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -38,8 +36,7 @@ public class Connection {
 
         try {
             data = readAllBytes(socket.getInputStream());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
@@ -60,8 +57,7 @@ public class Connection {
     public void closeConnection() {
         try {
             socket.close();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }

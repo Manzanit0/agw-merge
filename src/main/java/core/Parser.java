@@ -33,7 +33,7 @@ public class Parser {
         String[] headersArray = parts[0].split("\n");
 
         LinkedHashMap<String, String> headersMap = new LinkedHashMap<>();
-        for(int i = 1; i < headersArray.length; i++) { // Skip first element -> HTTP requestLine.
+        for (int i = 1; i < headersArray.length; i++) { // Skip first element -> HTTP requestLine.
             String[] header = headersArray[i].split(":");
             headersMap.put(header[0].trim(), header[1].trim());
         }

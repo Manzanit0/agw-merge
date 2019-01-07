@@ -5,9 +5,8 @@ import core.models.Response;
 
 public class Server {
     protected Connection connection;
-    private Router router;
-
     protected boolean isRunning = true;
+    private Router router;
 
     public Server(Connection connection) {
         this.connection = connection;
@@ -20,7 +19,7 @@ public class Server {
     }
 
     public void start() {
-        while(isRunning()) {
+        while (isRunning()) {
             connection.acceptConnection();
             handleRequest();
             connection.closeConnection();

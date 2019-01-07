@@ -1,11 +1,11 @@
 package core;
 
-import stubs.ServerStub;
-import stubs.ServerSocketStub;
-import stubs.SocketStub;
 import org.junit.Test;
+import stubs.ServerSocketStub;
+import stubs.ServerStub;
+import stubs.SocketStub;
 
-import java.io.*;
+import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 

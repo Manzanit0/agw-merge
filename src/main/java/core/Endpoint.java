@@ -52,7 +52,7 @@ public abstract class Endpoint {
             case "OPTIONS":
                 res = options(request);
                 break;
-            default :
+            default:
                 res = Response.badRequest();
         }
 

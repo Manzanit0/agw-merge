@@ -1,6 +1,9 @@
 package stubs;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
@@ -18,13 +21,13 @@ public class SocketStub extends Socket {
         return outputStream;
     }
 
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
     @Override
     public InputStream getInputStream() {
         return inputStream;
-    }
-
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
     }
 
     public void setInputStream(InputStream inputStream) {
@@ -39,8 +42,7 @@ public class SocketStub extends Socket {
 
         try {
             socketOutput.write(outMessage.getBytes(StandardCharsets.UTF_8));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
 
