@@ -10,3 +10,6 @@ script:
   - bundle exec spinach
   - kill %1
   - cd ..
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
