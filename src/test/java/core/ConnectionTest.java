@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ConnectionTest {
 
-    private int portNumber = 5000;
+    private int portNumber = 5101;
     private ServerSocketStub serverSocket;
     private SocketStub socket;
 
