@@ -34,7 +34,7 @@ public class ParserTest {
         headers.put("Host", "localhost");
         headers.put("Connection", "Keep-Alive");
         Request request = new Request("GET", "/helloworld", "HTTP/1.1")
-                .setHeaders(headers);
+                .withHeaders(headers);
 
         Request parsedRequest = Parser.parse(requestString);
 
@@ -59,8 +59,8 @@ public class ParserTest {
         headers.put("Content-Type", "application/text");
         headers.put("Content-Length", "456");
         Request request = new Request("POST", "localhost", "HTTP/1.1")
-                .setHeaders(headers)
-                .setBody("Some body");
+                .withHeaders(headers)
+                .withBody("Some body");
 
         Request parsedRequest = Parser.parse(requestString);
 

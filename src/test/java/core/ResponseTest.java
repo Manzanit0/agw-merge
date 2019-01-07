@@ -29,7 +29,7 @@ public class ResponseTest  {
     @Test
     public void buildsResponseWithBody() {
         Response res = Response.ok()
-                .setBody("some body");
+                .withBody("some body");
 
         assertEquals("HTTP/1.1 200 OK\n\nsome body", res.toString());
     }
@@ -40,8 +40,8 @@ public class ResponseTest  {
         headers.put(ResponseHeader.LOCATION, "value1");
         headers.put(ResponseHeader.ALLOW, "value2");
         Response res = Response.ok()
-                .addAllHeaders(headers)
-                .setBody("some body");
+                .withHeaders(headers)
+                .withBody("some body");
 
         assertEquals("HTTP/1.1 200 OK\nLocation: value1\nAllow: value2\n\nsome body", res.toString());
     }

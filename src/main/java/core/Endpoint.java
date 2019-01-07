@@ -56,7 +56,7 @@ public abstract class Endpoint {
                 res = Response.badRequest();
         }
 
-        return res.addAllHeaders(getDefaultHeaders());
+        return res.withHeaders(getDefaultHeaders());
     }
 
 

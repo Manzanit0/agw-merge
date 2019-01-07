@@ -13,6 +13,6 @@ public class Redirect extends Endpoint {
     @Override
     public Response get(Request request) {
         return Response.redirect()
-                .addHeader(ResponseHeader.LOCATION, "http://0.0.0.0:5000/simple_get");
+                .withHeader(ResponseHeader.LOCATION, "http://0.0.0.0:5000/simple_get");
     }
 }

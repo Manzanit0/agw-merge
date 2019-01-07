@@ -13,6 +13,6 @@ public class EchoBody extends Endpoint {
     @Override
     protected Response post(Request request) {
         return Response.ok()
-                .setBody(request.getBody());
+                .withBody(request.getBody());
     }
 }

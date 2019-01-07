@@ -10,15 +10,15 @@ public class Parser {
         Request request = new Request();
 
         String[] requestLine = parseRequestLine(requestString);
-        request.setMethod(requestLine[0])
-                .setUri(requestLine[1])
-                .setHttpVersion(requestLine[2]);
+        request.withMethod(requestLine[0])
+                .withUri(requestLine[1])
+                .withHttpVersion(requestLine[2]);
 
         Map<String, String> headers = parseHeaders(requestString);
-        request.setHeaders(headers);
+        request.withHeaders(headers);
 
         String body = parseBody(requestString);
-        request.setBody(body);
+        request.withBody(body);
 
         return request;
     }

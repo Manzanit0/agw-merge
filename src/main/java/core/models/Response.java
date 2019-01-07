@@ -37,17 +37,17 @@ public class Response {
         return new Response(ResponseType.BAD_REQUEST);
     }
 
-    public Response setBody(String body) {
+    public Response withBody(String body) {
         this.body = body;
         return this;
     }
 
-    public Response addAllHeaders(Map<ResponseHeader, String> headers) {
+    public Response withHeaders(Map<ResponseHeader, String> headers) {
         this.headers.putAll(headers);
         return this;
     }
 
-    public Response addHeader(ResponseHeader key, String value) {
+    public Response withHeader(ResponseHeader key, String value) {
         this.headers.put(key, value);
         return this;
     }

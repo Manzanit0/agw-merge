@@ -17,27 +17,27 @@ public class Request {
         this.httpVersion = httpVersion;
     }
 
-    public Request setMethod(String method) {
+    public Request withMethod(String method) {
         this.method = method;
         return this;
     }
 
-    public Request setUri(String uri) {
+    public Request withUri(String uri) {
         this.uri = uri;
         return this;
     }
 
-    public Request setHttpVersion(String httpVersion) {
+    public Request withHttpVersion(String httpVersion) {
         this.httpVersion = httpVersion;
         return this;
     }
 
-    public Request setBody(String body) {
+    public Request withBody(String body) {
         this.body = body;
         return this;
     }
 
-    public Request setHeaders(Map<String, String> headers) {
+    public Request withHeaders(Map<String, String> headers) {
         this.headers = headers;
         return this;
     }
