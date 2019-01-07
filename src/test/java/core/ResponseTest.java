@@ -28,10 +28,10 @@ public class ResponseTest {
 
     @Test
     public void buildsResponseWithBody() {
-        Response res = Response.ok()
+        Response res = Response.redirect()
                 .withBody("some body");
 
-        assertEquals("HTTP/1.1 200 OK\n\nsome body", res.toString());
+        assertEquals("HTTP/1.1 301 REDIRECT\n\nsome body", res.toString());
     }
 
     @Test
@@ -39,10 +39,20 @@ public class ResponseTest {
         Map<ResponseHeader, String> headers = new LinkedHashMap<>();
         headers.put(ResponseHeader.LOCATION, "value1");
         headers.put(ResponseHeader.ALLOW, "value2");
+
         Response res = Response.ok()
                 .withHeaders(headers)
                 .withBody("some body");
 
         assertEquals("HTTP/1.1 200 OK\nLocation: value1\nAllow: value2\n\nsome body", res.toString());
+    }
+
+    @Test
+    public void buildsResponseWithSingleHeaders() {
+        Response res = Response.ok()
+                .withHeader(ResponseHeader.LOCATION, "value1")
+                .withHeader(ResponseHeader.ALLOW, "value2");
+
+        assertEquals("HTTP/1.1 200 OK\nLocation: value1\nAllow: value2\n", res.toString());
     }
 }
