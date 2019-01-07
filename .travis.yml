@@ -1,3 +1,12 @@
 language: java
 jdk:
   - oraclejdk11
+
+script:
+  - mvn package
+  - java -jar target/http-server-1.0.jar &
+  - cd acceptance
+  - bundle install
+  - bundle exec spinach
+  - kill %1
+  - cd ..
