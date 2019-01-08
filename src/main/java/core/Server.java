@@ -48,10 +48,14 @@ public class Server {
     }
 
     protected void handleRequest() {
-        String request = connection.receive();
-        Request requestModel = Parser.parse(request);
-        Response responseModel = router.getResponse(requestModel);
-        connection.send(responseModel.toString());
+        try {
+            String request = connection.receive();
+            Request requestModel = Parser.parse(request);
+            Response responseModel = router.getResponse(requestModel);
+            connection.send(responseModel.toString());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     private boolean isRunning() {
