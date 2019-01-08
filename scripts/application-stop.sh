@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sudo kill $(ps -ef | grep http-server-1.0 | awk '{print $2}')
+yum install lsof
+kill $(lsof -t -i:5000)
