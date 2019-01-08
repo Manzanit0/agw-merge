@@ -3,3 +3,16 @@ os: linux
 files:
   - source: /
     destination: /var/http-server/
+hooks:
+  BeforeInstall:
+    - location: scripts/before-install.sh
+      timeout: 100
+      runas: root
+  ApplicationStop:
+    - location: scripts/application-stop.sh
+      timeout: 100
+      runas: root
+  ApplicationStart:
+    - location: scripts/application-start.sh
+      runas: root
+      timeout: 100
