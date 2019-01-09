@@ -19,3 +19,19 @@ source /etc/profile.d/jdk11.sh
 wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
 sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
 yum install -y apache-maven
+
+# Setup the systemd service
+cat << EOF >> http-server.service
+[Unit]
+Description=HTTP Server
+[Service]
+ExecStart=/var/http-server/scripts/run.sh
+Type=simple
+User=ec2-user
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mv http-server.service /etc/systemd/system
+
+systemctl daemon-reload
