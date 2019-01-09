@@ -13,3 +13,12 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  - provider: codedeploy
+    revision_type: github
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    application: "HttpServer"
+    deployment_group: "HttpServerAdministratorDeploymentGroup"
+    region: "eu-west-1"
