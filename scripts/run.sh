@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-java -jar target/http-server-1.0.jar
+java -jar /var/http-server/target/http-server-1.0.jar

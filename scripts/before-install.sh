@@ -1,36 +1,29 @@
 #!/usr/bin/env bash
 
-yum upgrade
-yum install wget
+apt-get update
 
-# Install Java JDK 11
-curl -O https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
-tar zxvf openjdk-11.0.1_linux-x64_bin.tar.gz
-mv jdk-11.0.1 /usr/local/
+# Install Java JDK 11 - APT only has version 10.
+wget https://download.java.net/java/GA/jdk11/28/GPL/openjdk-11+28_linux-x64_bin.tar.gz -O /tmp/openjdk-11+28_linux-x64_bin.tar.gz
+tar xfvz /tmp/openjdk-11+28_linux-x64_bin.tar.gz --directory /usr/lib/jvm
+rm -f /tmp/openjdk-11+28_linux-x64_bin.tar.gz
 
-cat > /etc/profile.d/jdk11.sh << EOF
-export JAVA_HOME=/usr/local/jdk-11.0.1
-export PATH=$PATH:$JAVA_HOME/bin
-EOF
-
-source /etc/profile.d/jdk11.sh
+sh -c 'for bin in /usr/lib/jvm/jdk-11/bin/*; do update-alternatives --install /usr/bin/$(basename $bin) $(basename $bin) $bin 100; done'
+sh -c 'for bin in /usr/lib/jvm/jdk-11/bin/*; do update-alternatives --set $(basename $bin) $bin; done'
 
 # Install Apache Maven
-wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
-sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
-yum install -y apache-maven
+apt install maven
 
 # Setup the systemd service
-cat << EOF >> http-server.service
+sh -c "cat > http-server.service << EOF
 [Unit]
 Description=HTTP Server
 [Service]
 ExecStart=/var/http-server/scripts/run.sh
 Type=simple
-User=ec2-user
+User=ubuntu
 [Install]
 WantedBy=multi-user.target
-EOF
+EOF"
 
 mv http-server.service /etc/systemd/system
 

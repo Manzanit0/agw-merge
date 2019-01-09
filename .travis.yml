@@ -9,7 +9,6 @@ script:
   - bundle install
   - bundle exec spinach
   - kill %1
-  - cd ..
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -20,5 +19,5 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     application: "HttpServer"
-    deployment_group: "HttpServerAdministratorDeploymentGroup"
+    deployment_group: "UbuntuInstances"
     region: "eu-west-1"
