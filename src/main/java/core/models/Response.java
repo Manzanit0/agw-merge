@@ -37,6 +37,10 @@ public class Response {
         return new Response(ResponseType.BAD_REQUEST);
     }
 
+    public static Response internalError() {
+        return new Response(ResponseType.INTERNAL_SERVER_ERROR);
+    }
+
     public Response withBody(String body) {
         this.body = body;
         return this;

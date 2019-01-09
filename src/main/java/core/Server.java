@@ -54,7 +54,8 @@ public class Server {
             Response responseModel = router.getResponse(requestModel);
             connection.send(responseModel.toString());
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Response errorResponse = Response.internalError();
+            connection.send(errorResponse.toString());
         }
     }
 

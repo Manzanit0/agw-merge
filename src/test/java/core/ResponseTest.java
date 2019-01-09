@@ -55,4 +55,12 @@ public class ResponseTest {
 
         assertEquals("HTTP/1.1 200 OK\nLocation: value1\nAllow: value2\n", res.toString());
     }
+
+    @Test
+    public void createsInternalErrorResponse() {
+        Response res = Response.internalError();
+
+        assertEquals("INTERNAL SERVER ERROR", res.getReason());
+        assertEquals(500, res.getStatusCode());
+    }
 }
