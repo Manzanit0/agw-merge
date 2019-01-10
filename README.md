@@ -17,7 +17,7 @@ mvn package
 
 To execute the server:
 ```bash
-java -jar http-server-1.0.jar server
+java -jar http-server-1.0.jar
 ```
 
 To run the tests:
