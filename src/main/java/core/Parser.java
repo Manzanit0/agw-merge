@@ -1,26 +1,31 @@
 package core;
 
+import core.exceptions.HttpParseException;
 import core.models.Request;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Parser {
-    public static Request parse(String requestString) {
-        Request request = new Request();
+    public static Request parse(String requestString) throws HttpParseException {
+        try {
+            Request request = new Request();
 
-        String[] requestLine = parseRequestLine(requestString);
-        request.withMethod(requestLine[0])
-                .withUri(requestLine[1])
-                .withHttpVersion(requestLine[2]);
+            String[] requestLine = parseRequestLine(requestString);
+            request.withMethod(requestLine[0])
+                    .withUri(requestLine[1])
+                    .withHttpVersion(requestLine[2]);
 
-        Map<String, String> headers = parseHeaders(requestString);
-        request.withHeaders(headers);
+            Map<String, String> headers = parseHeaders(requestString);
+            request.withHeaders(headers);
 
-        String body = parseBody(requestString);
-        request.withBody(body);
+            String body = parseBody(requestString);
+            request.withBody(body);
 
-        return request;
+            return request;
+        } catch (Exception ex) {
+            throw new HttpParseException(ex);
+        }
     }
 
     private static String[] parseRequestLine(String requestString) {

@@ -1,16 +1,18 @@
 package core;
 
+import core.exceptions.HttpParseException;
 import core.models.Request;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class ParserTest {
 
     @Test
-    public void parseRequestWithoutHeaders() {
+    public void parseRequestWithoutHeaders() throws HttpParseException {
         String requestString = "GET /helloworld HTTP/1.1\n";
 
         Request request = new Request("GET", "/helloworld", "HTTP/1.1");
@@ -22,7 +24,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseRequestWithHeaders() {
+    public void parseRequestWithHeaders() throws HttpParseException {
         String requestString =
                 "GET /helloworld HTTP/1.1\n" +
                         "User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\n" +
@@ -47,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseRequestWithHeadersAndBody() {
+    public void parseRequestWithHeadersAndBody() throws HttpParseException {
         String requestString =
                 "POST localhost HTTP/1.1\n" +
                         "Content-Type: application/text\n" +
@@ -70,5 +72,16 @@ public class ParserTest {
         assertEquals(request.getHeaders().get("Content-Type"), parsedRequest.getHeaders().get("Content-Type"));
         assertEquals(request.getHeaders().get("Content-Length"), parsedRequest.getHeaders().get("Content-Length"));
         assertEquals(request.getBody(), parsedRequest.getBody());
+    }
+
+    @Test
+    public void throwsExceptionUponUnparseableRequest() {
+        try {
+            Parser.parse("Some-random-code.");
+            assertTrue(false);
+        }
+        catch (HttpParseException ex) {
+            assertTrue(true);
+        }
     }
 }

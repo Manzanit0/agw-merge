@@ -1,5 +1,6 @@
 package core;
 
+import core.exceptions.HttpParseException;
 import core.models.Request;
 import core.models.Response;
 
@@ -48,9 +49,15 @@ public class Server {
     }
 
     protected void handleRequest() {
-        String request = connection.receive();
-        Request requestModel = Parser.parse(request);
-        Response responseModel = router.getResponse(requestModel);
+        Response responseModel;
+        try {
+            String request = connection.receive();
+            Request requestModel = Parser.parse(request);
+            responseModel = router.getResponse(requestModel);
+        } catch (HttpParseException ex) {
+            responseModel = Response.badRequest();
+        }
+
         connection.send(responseModel.toString());
     }
 
