@@ -5,6 +5,7 @@ import core.models.Response;
 import core.models.ResponseHeader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,12 +60,16 @@ public abstract class Endpoint {
         return res.withHeaders(getDefaultHeaders());
     }
 
-
     private Map<ResponseHeader, String> getDefaultHeaders() {
-        return Map.of(
-                ResponseHeader.SERVER, "A Javier Server 1.0",
-                ResponseHeader.ALLOW, String.join(",", allowedMethods)
-        );
+        Map<ResponseHeader, String> defaultHeaders = new HashMap<>();
+
+        defaultHeaders.put(ResponseHeader.SERVER, "Javier's awesome server");
+
+        if (!allowedMethods.isEmpty()) {
+            defaultHeaders.put(ResponseHeader.ALLOW, String.join(",", allowedMethods));
+        }
+
+        return defaultHeaders;
     }
 
     protected void setAllowedMethodsHeader(List<String> allowedMethods) {
