@@ -14,10 +14,18 @@ public class Connection {
         this.serverSocket = serverSocket;
     }
 
-    public void acceptConnection() {
+    public void accept() {
         try {
             socket = serverSocket.accept();
         } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void close() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
@@ -52,13 +60,5 @@ public class Connection {
         } while (stream.available() > 0);
 
         return data.toString().trim();
-    }
-
-    public void closeConnection() {
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }

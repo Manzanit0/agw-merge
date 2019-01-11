@@ -34,7 +34,7 @@ public class ConnectionTest {
     @Test
     public void sendsMessages() {
         Connection connection = new Connection(serverSocket);
-        connection.acceptConnection();
+        connection.accept();
 
         connection.send("A message in a socket.");
 
@@ -45,7 +45,7 @@ public class ConnectionTest {
     @Test
     public void receivesMessages() {
         Connection connection = new Connection(serverSocket);
-        connection.acceptConnection();
+        connection.accept();
 
         socket.setMockMessages("out", "in");
 
@@ -57,7 +57,7 @@ public class ConnectionTest {
     @Test
     public void receivesMultilineMessages() {
         Connection connection = new Connection(serverSocket);
-        connection.acceptConnection();
+        connection.accept();
 
         socket.setMockMessages("out", "in\nin2\nin3");
 

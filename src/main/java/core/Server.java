@@ -42,13 +42,13 @@ public class Server {
 
     public void start() {
         while (isRunning()) {
-            connection.acceptConnection();
+            connection.accept();
             handleRequest();
-            connection.closeConnection();
+            connection.close();
         }
     }
 
-    protected void handleRequest() {
+    public void handleRequest() {
         Response responseModel;
         try {
             String request = connection.receive();
