@@ -12,30 +12,30 @@ import java.io.IOException;
 import static junit.framework.TestCase.assertEquals;
 
 public class ConnectionTest {
-
-    private int portNumber = 5101;
     private ServerSocketStub serverSocket;
     private SocketStub socket;
+    private Connection connection;
 
     @Before
     public void init() throws IOException {
         socket = new SocketStub();
-        serverSocket = new ServerSocketStub(portNumber++);
+        serverSocket = new ServerSocketStub(5101);
 
         // Simulates the first accepted connection.
         serverSocket.setConnectionSocket(socket);
+
+        connection = new Connection(serverSocket);
+        connection.accept();
     }
 
     @After
     public void clean() throws IOException {
+        connection.close();
         serverSocket.close();
     }
 
     @Test
     public void sendsMessages() {
-        Connection connection = new Connection(serverSocket);
-        connection.accept();
-
         connection.send("A message in a socket.");
 
         ByteArrayOutputStream output = (ByteArrayOutputStream) socket.getOutputStream();
@@ -44,9 +44,6 @@ public class ConnectionTest {
 
     @Test
     public void receivesMessages() {
-        Connection connection = new Connection(serverSocket);
-        connection.accept();
-
         socket.setMockMessages("out", "in");
 
         String message = connection.receive();
@@ -56,9 +53,6 @@ public class ConnectionTest {
 
     @Test
     public void receivesMultilineMessages() {
-        Connection connection = new Connection(serverSocket);
-        connection.accept();
-
         socket.setMockMessages("out", "in\nin2\nin3");
 
         String message = connection.receive();
