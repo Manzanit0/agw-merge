@@ -12,11 +12,6 @@ public class Server {
     private boolean isRunning = true;
     private Router router;
 
-    public Server(Connection connection) {
-        this.connection = connection;
-        this.router = new Router();
-    }
-
     public Server(Connection connection, Router router) {
         this.connection = connection;
         this.router = router;
