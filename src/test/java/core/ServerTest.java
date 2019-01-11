@@ -1,37 +1,40 @@
 package core;
 
 import org.junit.Test;
-import stubs.ServerSocketStub;
-import stubs.ServerStub;
-import stubs.SocketStub;
+import stubs.ConnectionStub;
+import stubs.RouterStub;
 
-import java.io.IOException;
+import java.util.LinkedList;
 
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
 public class ServerTest {
-    @Test
-    public void handlesMultipleConnections() throws IOException {
-        SocketStub socket = new SocketStub();
-        ServerSocketStub serverSocket = new ServerSocketStub(5201);
-        Connection connection = new Connection(serverSocket);
-
-        // Simulates the first accepted connection.
-        serverSocket.setConnectionSocket(socket);
-
-        ServerStub server = new ServerStub(connection);
-        server.setRequestsToProcess(5);
-
-        server.start();
-
-        assertEquals(5, server.getRequestsProcessed());
-    }
-
     @Test
     public void createsDefaultRouterWithoutExceptions() {
         Server server = Server.defaultServer(5202);
         assertNotEquals(null, server);
         assertNotEquals(null, server.getRouter());
+    }
+
+    @Test
+    public void uponHandlingNonHttpRequestReturnsBadRequest() {
+        ConnectionStub connectionStub = createConnectionStubWithBadMessages();
+        RouterStub routerStub = new RouterStub();
+        Server server = new Server(connectionStub, routerStub);
+
+        server.handleRequest();
+
+        assertTrue(connectionStub.getLastResponse().contains("BAD REQUEST"));
+    }
+
+    private ConnectionStub createConnectionStubWithBadMessages() {
+        ConnectionStub connectionStub = new ConnectionStub(null);
+
+        LinkedList<String> messages = new LinkedList<>();
+        messages.add("some-non-http-message");
+        connectionStub.setIncomingRequests(messages);
+
+        return connectionStub;
     }
 }
