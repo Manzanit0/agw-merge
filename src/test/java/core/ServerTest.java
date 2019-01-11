@@ -22,10 +22,8 @@ public class ServerTest {
 
     @Test
     public void pipesConnectionParserAndRouter() {
-        LinkedList<String> messages = new LinkedList<>();
-        messages.add("GET /hello-world HTTP/1.1\n");
-        ConnectionStub connectionStub = new ConnectionStub(null);
-        connectionStub.setIncomingRequests(messages);
+        String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n" };
+        ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
         LinkedList<Response> responses = new LinkedList<>();
         responses.add(Response.ok());
@@ -43,10 +41,8 @@ public class ServerTest {
 
     @Test
     public void uponHandlingNonHttpRequestReturnsBadRequest() {
-        LinkedList<String> messages = new LinkedList<>();
-        messages.add("some-non-http-message");
-        ConnectionStub connectionStub = new ConnectionStub(null);
-        connectionStub.setIncomingRequests(messages);
+        String[] mockMessages = new String[] { "some-non-http-message" };
+        ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
         RouterStub routerStub = new RouterStub();
         Server server = new Server(connectionStub, routerStub);
@@ -58,11 +54,8 @@ public class ServerTest {
 
     @Test
     public void processesMultipleRequests() {
-        LinkedList<String> messages = new LinkedList<>();
-        messages.add("GET /hello-world HTTP/1.1\n");
-        messages.add("GET /bye-world HTTP/1.1\n");
-        ConnectionStub connectionStub = new ConnectionStub(null);
-        connectionStub.setIncomingRequests(messages);
+        String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n", "GET /bye-world HTTP/1.1\n" };
+        ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
         LinkedList<Response> responses = new LinkedList<>();
         responses.add(Response.ok());

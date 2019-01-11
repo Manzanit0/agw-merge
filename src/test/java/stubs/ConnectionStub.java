@@ -3,6 +3,7 @@ package stubs;
 import core.Connection;
 
 import java.net.ServerSocket;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class ConnectionStub extends Connection {
@@ -11,6 +12,16 @@ public class ConnectionStub extends Connection {
 
     public ConnectionStub(ServerSocket serverSocket) {
         super(serverSocket);
+    }
+
+    public static ConnectionStub createWithMessages(String[] messages) {
+        ConnectionStub conn = new ConnectionStub(null);
+
+        LinkedList<String> messagesList = new LinkedList<>();
+        messagesList.addAll(Arrays.asList(messages));
+        conn.setIncomingRequests(messagesList);
+
+        return conn;
     }
 
     @Override
