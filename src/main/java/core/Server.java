@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 public class Server {
-    protected Connection connection;
-    protected boolean isRunning = true;
+    private Connection connection;
+    private boolean isRunning = true;
     private Router router;
 
     public Server(Connection connection) {
@@ -61,7 +61,7 @@ public class Server {
         connection.send(responseModel.toString());
     }
 
-    private boolean isRunning() {
+    protected boolean isRunning() {
         return isRunning;
     }
 }
