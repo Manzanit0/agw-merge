@@ -24,6 +24,7 @@ public class RouterStub extends Router {
 
         return router;
     }
+
     @Override
     public Response getResponse(Request request) {
         lastRequest = request;

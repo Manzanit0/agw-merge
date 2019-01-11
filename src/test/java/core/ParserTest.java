@@ -79,8 +79,7 @@ public class ParserTest {
         try {
             Parser.parse("Some-random-code.");
             assertTrue(false);
-        }
-        catch (HttpParseException ex) {
+        } catch (HttpParseException ex) {
             assertTrue(true);
         }
     }

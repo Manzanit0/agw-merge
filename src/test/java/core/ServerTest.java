@@ -6,8 +6,6 @@ import stubs.ConnectionStub;
 import stubs.RouterStub;
 import stubs.ServerStub;
 
-import java.util.LinkedList;
-
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
@@ -22,10 +20,10 @@ public class ServerTest {
 
     @Test
     public void pipesConnectionParserAndRouter() {
-        String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n" };
+        String[] mockMessages = new String[]{"GET /hello-world HTTP/1.1\n"};
         ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
-        Response[] mockResponses = new Response[] { Response.ok() };
+        Response[] mockResponses = new Response[]{Response.ok()};
         RouterStub routerStub = RouterStub.createWithResponses(mockResponses);
 
         Server server = new Server(connectionStub, routerStub);
@@ -39,7 +37,7 @@ public class ServerTest {
 
     @Test
     public void uponHandlingNonHttpRequestReturnsBadRequest() {
-        String[] mockMessages = new String[] { "some-non-http-message" };
+        String[] mockMessages = new String[]{"some-non-http-message"};
         ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
         RouterStub routerStub = new RouterStub();
@@ -52,10 +50,10 @@ public class ServerTest {
 
     @Test
     public void processesMultipleRequests() {
-        String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n", "GET /bye-world HTTP/1.1\n" };
+        String[] mockMessages = new String[]{"GET /hello-world HTTP/1.1\n", "GET /bye-world HTTP/1.1\n"};
         ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
-        Response[] mockResponses = new Response[] { Response.ok(), Response.redirect() };
+        Response[] mockResponses = new Response[]{Response.ok(), Response.redirect()};
         RouterStub routerStub = RouterStub.createWithResponses(mockResponses);
 
         ServerStub server = new ServerStub(connectionStub, routerStub);
