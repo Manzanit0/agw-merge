@@ -9,7 +9,6 @@ import java.net.ServerSocket;
 
 public class Server {
     private Connection connection;
-    private boolean isRunning = true;
     private Router router;
 
     public Server(Connection connection, Router router) {
@@ -57,6 +56,6 @@ public class Server {
     }
 
     protected boolean isRunning() {
-        return isRunning;
+        return true;
     }
 }
