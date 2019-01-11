@@ -4,6 +4,7 @@ import core.Router;
 import core.models.Request;
 import core.models.Response;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class RouterStub extends Router {
@@ -14,6 +15,15 @@ public class RouterStub extends Router {
         responses = new LinkedList<>();
     }
 
+    public static RouterStub createWithResponses(Response[] messages) {
+        RouterStub router = new RouterStub();
+
+        LinkedList<Response> messagesList = new LinkedList<>();
+        messagesList.addAll(Arrays.asList(messages));
+        router.setResponses(messagesList);
+
+        return router;
+    }
     @Override
     public Response getResponse(Request request) {
         lastRequest = request;

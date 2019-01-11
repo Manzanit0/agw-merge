@@ -25,10 +25,8 @@ public class ServerTest {
         String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n" };
         ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
-        LinkedList<Response> responses = new LinkedList<>();
-        responses.add(Response.ok());
-        RouterStub routerStub = new RouterStub();
-        routerStub.setResponses(responses);
+        Response[] mockResponses = new Response[] { Response.ok() };
+        RouterStub routerStub = RouterStub.createWithResponses(mockResponses);
 
         Server server = new Server(connectionStub, routerStub);
 
@@ -57,11 +55,8 @@ public class ServerTest {
         String[] mockMessages = new String[] { "GET /hello-world HTTP/1.1\n", "GET /bye-world HTTP/1.1\n" };
         ConnectionStub connectionStub = ConnectionStub.createWithMessages(mockMessages);
 
-        LinkedList<Response> responses = new LinkedList<>();
-        responses.add(Response.ok());
-        responses.add(Response.redirect());
-        RouterStub routerStub = new RouterStub();
-        routerStub.setResponses(responses);
+        Response[] mockResponses = new Response[] { Response.ok(), Response.redirect() };
+        RouterStub routerStub = RouterStub.createWithResponses(mockResponses);
 
         ServerStub server = new ServerStub(connectionStub, routerStub);
         server.setRequestsUntilShutdown(2);
