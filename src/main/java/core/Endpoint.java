@@ -63,7 +63,7 @@ public abstract class Endpoint {
     private Map<ResponseHeader, String> getDefaultHeaders() {
         Map<ResponseHeader, String> defaultHeaders = new HashMap<>();
 
-        defaultHeaders.put(ResponseHeader.SERVER, "Javier's awesome server");
+        defaultHeaders.put(ResponseHeader.SERVER, "A serious server name");
 
         if (!allowedMethods.isEmpty()) {
             defaultHeaders.put(ResponseHeader.ALLOW, String.join(",", allowedMethods));
