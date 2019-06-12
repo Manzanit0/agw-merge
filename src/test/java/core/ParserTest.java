@@ -26,16 +26,16 @@ public class ParserTest {
     @Test
     public void parseRequestWithHeaders() throws HttpParseException {
         String requestString =
-                "GET /helloworld HTTP/1.1\n" +
+                "GET /hello_world HTTP/1.1\n" +
                         "User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)\n" +
-                        "Host: localhost\n" +
+                        "Host: 172.89.65.7\n" +
                         "Connection: Keep-Alive";
 
         LinkedHashMap<String, String> headers = new LinkedHashMap<>();
         headers.put("User-Agent", "Mozilla/4.0 (compatible; MSIE5.01; Windows NT)");
-        headers.put("Host", "localhost");
+        headers.put("Host", "172.89.65.7");
         headers.put("Connection", "Keep-Alive");
-        Request request = new Request("GET", "/helloworld", "HTTP/1.1")
+        Request request = new Request("GET", "/hello_world", "HTTP/1.1")
                 .withHeaders(headers);
 
         Request parsedRequest = Parser.parse(requestString);
