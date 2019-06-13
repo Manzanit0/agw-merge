@@ -17,3 +17,11 @@ $ git merge --continue
 $ git merge --abort
 $ git merge -h
 ```
+
+The project is using Apache Maven for project management, so in order to compile, run the tests,
+etc. pick the following commands:
+
+```
+$ mvn compile
+$ mvn test
+```
